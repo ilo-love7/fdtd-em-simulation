@@ -15,7 +15,8 @@ CFL 稳定性：c·dt/dx ≤ 1/√2（正方形网格）。
 系数为 dt/(ε·dx) 与 dt/(μ·dx)，与 1D 求解器一致。
 若先把差分除以 dx 再乘 dt/(ε·dx)，会双重除 dx 导致发散（v1.0 调试教训）。
 
-支持：PEC 金属（Ez 强制 0）、位置相关 εr、一阶 Mur 吸收边界、点/行软硬源。
+支持：PEC 金属（Ez 强制 0）、位置相关 εr、一阶 Mur 吸收边界或 PML 吸收层
+（pml_cells_x/y>0 时启用 PML 并关闭 Mur）、点/行软硬源。
 """
 from __future__ import annotations
 
@@ -24,6 +25,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from .boundaries import mur1_update
+from .pml import lossy_coeffs, sigma_profile_2d
 
 C0 = 299_792_458.0
 EPS0 = 8.8541878128e-12
@@ -47,6 +49,9 @@ class FDTD2D:
     dx: float
     courant: float = 0.65
     eps_r: np.ndarray | None = None
+    pml_cells_x: int = 0        # x 两侧 PML 厚度（>0 启用 PML 取代 Mur）
+    pml_cells_y: int = 0        # y 两侧 PML 厚度
+    pml_m: int = 4
 
     Ez: np.ndarray = field(init=False, repr=False)
     Hx: np.ndarray = field(init=False, repr=False)
@@ -54,6 +59,7 @@ class FDTD2D:
     dt: float = field(init=False)
     n_steps: int = field(default=0, init=False)
     _Ez_old: np.ndarray = field(init=False, repr=False)
+    _sigma: np.ndarray = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         smax = 1.0 / np.sqrt(2.0)
@@ -70,6 +76,11 @@ class FDTD2D:
         self.Hy = np.zeros((self.nx - 1, self.ny))
         self._Ez_old = np.zeros((self.nx, self.ny))
         self._mur_coef = (C0 * self.dt - self.dx) / (C0 * self.dt + self.dx)
+        self._sigma = sigma_profile_2d(self.nx, self.ny, self.pml_cells_x,
+                                       self.pml_cells_y, self.dx, self.pml_m)
+
+    def use_pml(self) -> bool:
+        return self.pml_cells_x > 0 or self.pml_cells_y > 0
 
     # ---------- 材料 ----------
     @staticmethod
@@ -90,30 +101,58 @@ class FDTD2D:
 
     # ---------- 步进 ----------
     def step_h(self) -> None:
-        """H 半步：Hx 对 ∂Ez/∂y，Hy 对 ∂Ez/∂x（节点差未除 dx）。"""
+        """H 半步：Hx 对 ∂Ez/∂y，Hy 对 ∂Ez/∂x（节点差未除 dx）。
+
+        PML 路径：H 按匹配条件同步衰减（σ_m/μ0=σ_e/ε0），否则 PML 内
+        H 无阻尼会与静态场耦合成积分器泵浦（v1.1 教训）。
+        """
         # Hx[i,j] 位于 (i, j+½)：ΔEz = Ez[i,j+1] − Ez[i,j]
-        self.Hx -= (self.dt / (MU0 * self.dx)) * (self.Ez[:, 1:] - self.Ez[:, :-1])
+        drive_x = -(self.dt / (MU0 * self.dx)) * (self.Ez[:, 1:] - self.Ez[:, :-1])
         # Hy[i,j] 位于 (i+½, j)：ΔEz = Ez[i+1,j] − Ez[i,j]
-        self.Hy += (self.dt / (MU0 * self.dx)) * (self.Ez[1:, :] - self.Ez[:-1, :])
+        drive_y = (self.dt / (MU0 * self.dx)) * (self.Ez[1:, :] - self.Ez[:-1, :])
+        if self.use_pml():
+            sig_hx = 0.5 * (self._sigma[:, :-1] + self._sigma[:, 1:])
+            sig_hy = 0.5 * (self._sigma[:-1, :] + self._sigma[1:, :])
+            for arr, sig, drive in ((self.Hx, sig_hx, drive_x), (self.Hy, sig_hy, drive_y)):
+                x = sig * self.dt / EPS0
+                decay = np.exp(-x)
+                small = x < 1e-8
+                phi = np.where(small, 1.0 - x / 2.0 + x**2 / 6.0,
+                               (1.0 - decay) / np.where(small, 1.0, x))
+                arr[:] = decay * arr + phi * drive
+        else:
+            self.Hx += drive_x
+            self.Hy += drive_y
 
     def _update_ez(self, y_neumann: bool = False) -> None:
-        """Ez 内部节点更新 + x 边 Mur + y 边界（Mur 或 Neumann）。
+        """Ez 更新：PML 路径（有耗 CN）或 Mur/Neumann 路径。
 
         y_neumann=True 时 y 两侧用对称条件（E[:,0]=E[:,1], E[:,-1]=E[:,-2]），
         严格保持 y 均匀场（平面波验证用）；默认 y 也用 Mur（衍射问题用）。
         """
         self._Ez_old[:] = self.Ez
-        new = self.Ez.copy()
-        dhy = self.Hy[1:, 1:-1] - self.Hy[:-1, 1:-1]   # ΔHy（未除 dx）
-        dhx = self.Hx[1:-1, 1:] - self.Hx[1:-1, :-1]   # ΔHx（未除 dx）
-        new[1:-1, 1:-1] += (self.dt / (EPS0 * self.eps_r[1:-1, 1:-1] * self.dx)) * (dhy - dhx)
-        self.Ez = new
-        mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=0, side="lo")
-        mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=0, side="hi")
+        if self.use_pml():
+            # PML 路径：精确积分有耗更新（系数恒正），H 差分用边缘镜像闭合
+            hyp = np.pad(self.Hy, ((1, 1), (0, 0)), mode="edge")   # (nx+1, ny)
+            hxp = np.pad(self.Hx, ((0, 0), (1, 1)), mode="edge")   # (nx, ny+1)
+            dhy = hyp[1:, :] - hyp[:-1, :]    # ΔHy（未除 dx）
+            dhx = hxp[:, 1:] - hxp[:, :-1]    # ΔHx（未除 dx）
+            eps = EPS0 * self.eps_r
+            decay, drive = lossy_coeffs(self._sigma, self.dt, eps)
+            self.Ez = (decay * self.Ez
+                       + drive * (self.dt / (eps * self.dx)) * (dhy - dhx))
+        else:
+            new = self.Ez.copy()
+            dhy = self.Hy[1:, 1:-1] - self.Hy[:-1, 1:-1]   # ΔHy（未除 dx）
+            dhx = self.Hx[1:-1, 1:] - self.Hx[1:-1, :-1]   # ΔHx（未除 dx）
+            new[1:-1, 1:-1] += (self.dt / (EPS0 * self.eps_r[1:-1, 1:-1] * self.dx)) * (dhy - dhx)
+            self.Ez = new
+            mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=0, side="lo")
+            mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=0, side="hi")
         if y_neumann:
             self.Ez[:, 0] = self.Ez[:, 1]
             self.Ez[:, -1] = self.Ez[:, -2]
-        else:
+        elif not self.use_pml():
             mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=1, side="lo")
             mur1_update(self.Ez, self._Ez_old, self._mur_coef, axis=1, side="hi")
 

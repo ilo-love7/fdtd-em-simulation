@@ -3,7 +3,8 @@
  "solver": [
   "手写 1D Yee (Ez-Hy)",
   "手写 2D TMz Yee",
-  "flaport/fdtd 0.3.5 (Bragg)"
+  "flaport/fdtd 0.3.5 (Bragg)",
+  "匹配有耗 PML 层 (v1.1)"
  ],
  "metrics": {
   "speed_err_pct": 0.25062656641603454,
@@ -21,18 +22,32 @@
   "bragg_bandgap_center_err_pct": 1.4396372233260735,
   "bragg_T_min_in_gap": 0.0009715945167507317
  },
+ "metrics_v11": {
+  "pml_energy_residual": 6.6472632787399916e-06,
+  "pml_envelope_r_open": 0.010527007094829632,
+  "pml_2d_standing_wave_abs_r": 0.924372184307448,
+  "pml_2d_node_spacing_err_pct": 0.33535538231457274,
+  "photonic_gap_center_over_a": 2.806406664641983,
+  "fresnel_convergence_order": 1.1841181915530044
+ },
  "files": {
   "results": [
    "01_1d_validation.json",
    "02_2d_metal_reflection.json",
    "03_2d_slit_diffraction.json",
-   "04_bragg_mirror.json"
+   "04_bragg_mirror.json",
+   "06_pml_validation.json",
+   "07_photonic_crystal.json",
+   "08_convergence.json"
   ],
   "figures": [
    "01_1d_validation.png",
    "02_2d_metal_reflection.png",
    "03_2d_slit_diffraction.png",
-   "04_bragg_mirror.png"
+   "04_bragg_mirror.png",
+   "06_pml_validation.png",
+   "07_photonic_crystal.png",
+   "08_convergence.png"
   ]
  }
 }

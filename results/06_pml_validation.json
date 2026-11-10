@@ -1,0 +1,47 @@
+{
+ "config": {
+  "pml_cells_1d": 16,
+  "pml_cells_2d": 16,
+  "pml_m": 3,
+  "sigma_max_rule": "0.8(m+1)/(eta0 dx)",
+  "damping_ratio_m_over_e": 1.0
+ },
+ "echo_1d": {
+  "pml": 0.004511909532719598,
+  "mur": 0.00327730106017027,
+  "courant": 0.65,
+  "mur_update_coef": 0.21212121212121213,
+  "note": "Mur 1st order ~exact at 1D normal incidence; its failure mode is oblique/2D (see point-source test)"
+ },
+ "envelope_vswr": {
+  "pec_anchor": {
+   "r_envelope": 0.9838209300199913,
+   "amp_max": 1.0697799883298276,
+   "amp_min": 0.008724600609101721,
+   "n_points": 170
+  },
+  "pml_open": {
+   "r_envelope": 0.010527007094829632,
+   "amp_max": 0.5406524403910831,
+   "amp_min": 0.5293881158636342,
+   "n_points": 70
+  }
+ },
+ "standing_wave_2d": {
+  "node_spacing_cells": 10.033535538231458,
+  "lambda_half_cells": 10.0,
+  "spacing_err_pct": 0.33535538231457274,
+  "r_abs": 0.924372184307448,
+  "r_phase_deg": -179.59895105795587,
+  "r_envelope_depth": 0.9666597069644439,
+  "n_nodes": 10,
+  "amp_max": 2.169023764039512,
+  "amp_min": 0.03677092058075591,
+  "fit_residual": 0.36502398762642213
+ },
+ "point_source_2d": {
+  "pml": 4.304042476237764e-08,
+  "mur": 7.657344934992431e-08
+ },
+ "energy_residual": 6.6472632787399916e-06
+}

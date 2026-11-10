@@ -8,7 +8,7 @@ CFL 稳定性：c·dt/dx ≤ 1（1D）。
 支持：
 - 位置相关 εr（介质界面/多层）
 - PEC 墙（Ez 强制 0）
-- 一阶 Mur 吸收边界
+- 一阶 Mur 吸收边界 / PML 电导率渐变吸收层（pml_cells>0 时自动启用并关闭 Mur）
 - 软电流源 / 硬源 / 高斯脉冲或单频连续波
 """
 from __future__ import annotations
@@ -18,6 +18,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from .boundaries import mur1_update
+from .pml import lossy_coeffs, sigma_profile_1d
 
 C0 = 299_792_458.0
 EPS0 = 8.8541878128e-12
@@ -40,6 +41,8 @@ class FDTD1D:
     dx: float
     courant: float = 0.95
     eps_r: np.ndarray | None = None
+    pml_cells: int = 0          # >0 时两侧铺设 PML 吸收层（取代 Mur）
+    pml_m: int = 4              # σ 渐变多项式阶
 
     # 运行时状态
     Ez: np.ndarray = field(init=False, repr=False)
@@ -47,6 +50,7 @@ class FDTD1D:
     _Ez_old_edge: np.ndarray = field(init=False, repr=False)
     dt: float = field(init=False)
     n_steps: int = field(default=0, init=False)
+    _sigma: np.ndarray = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         if not (0 < self.courant <= 1.0):
@@ -61,6 +65,7 @@ class FDTD1D:
         self.Hy = np.zeros(self.nx - 1)  # 半节点
         self._Ez_old_edge = np.zeros(self.nx)
         self._mur_coef = (C0 * self.dt - self.dx) / (C0 * self.dt + self.dx)
+        self._sigma = sigma_profile_1d(self.nx, self.pml_cells, self.dx, self.pml_m)
 
     # ---------- 材料辅助 ----------
     @staticmethod
@@ -75,8 +80,23 @@ class FDTD1D:
 
     # ---------- 步进 ----------
     def step_h(self) -> None:
-        """Hy 半步更新：Hy[i] 位于 i+1/2，∂Ez/∂x 用 (Ez[i+1]-Ez[i])/dx。"""
-        self.Hy += (self.dt / (MU0 * self.dx)) * (self.Ez[1:] - self.Ez[:-1])
+        """Hy 半步更新：Hy[i] 位于 i+1/2，∂Ez/∂x 用 (Ez[i+1]-Ez[i])/dx。
+
+        PML 路径：H 同步按匹配条件衰减（σ_m/μ0=σ_e/ε0，同因子 x=σΔt/ε0），
+        否则 PML 内 H 无阻尼会与静态场耦合成积分器泵浦（v1.1 教训）。
+        """
+        diff = self.Ez[1:] - self.Ez[:-1]
+        drive = (self.dt / (MU0 * self.dx)) * diff
+        if self.pml_cells > 0:
+            sig_h = 0.5 * (self._sigma[:-1] + self._sigma[1:])   # 半节点
+            x = sig_h * self.dt / EPS0
+            decay = np.exp(-x)
+            small = x < 1e-8
+            phi = np.where(small, 1.0 - x / 2.0 + x**2 / 6.0,
+                           (1.0 - decay) / np.where(small, 1.0, x))
+            self.Hy = decay * self.Hy + phi * drive
+        else:
+            self.Hy += drive
 
     def step_e(self, source: float = 0.0, source_index: int | None = None,
                soft: bool = True, pec_mask: np.ndarray | None = None) -> None:
@@ -86,14 +106,23 @@ class FDTD1D:
         source_index: 注入点；None 则不注入
         pec_mask: 布尔数组，True 处 Ez 强制 0（PEC）
         """
-        self._Ez_old_edge[:] = self.Ez  # 保存旧值供 Mur 使用
-        new = self.Ez.copy()
-        # 内部节点 1..nx-2：Hy 有效下标 0..nx-3 → Hy[i]-Hy[i-1] 需 i≥1 且 i-1 ≤ nx-3
-        new[1:-1] += (self.dt / (EPS0 * self.eps_r[1:-1] * self.dx)) * (self.Hy[1:] - self.Hy[:-1])
-        self.Ez = new
-        # Mur 一阶吸收边界
-        mur1_update(self.Ez, self._Ez_old_edge, self._mur_coef, axis=0, side="lo")
-        mur1_update(self.Ez, self._Ez_old_edge, self._mur_coef, axis=0, side="hi")
+        if self.pml_cells > 0:
+            # PML 路径：精确积分有耗更新（系数恒正）+ 外缘零梯度闭合
+            self._Ez_old_edge[:] = self.Ez
+            curl = np.zeros(self.nx)
+            curl[1:-1] = self.Hy[1:] - self.Hy[:-1]   # 边缘缺邻居 → curl=0（镜像）
+            eps = EPS0 * self.eps_r
+            decay, drive = lossy_coeffs(self._sigma, self.dt, eps)
+            self.Ez = decay * self.Ez + drive * (self.dt / (eps * self.dx)) * curl
+        else:
+            self._Ez_old_edge[:] = self.Ez  # 保存旧值供 Mur 使用
+            new = self.Ez.copy()
+            # 内部节点 1..nx-2：Hy 有效下标 0..nx-3 → Hy[i]-Hy[i-1] 需 i≥1 且 i-1 ≤ nx-3
+            new[1:-1] += (self.dt / (EPS0 * self.eps_r[1:-1] * self.dx)) * (self.Hy[1:] - self.Hy[:-1])
+            self.Ez = new
+            # Mur 一阶吸收边界
+            mur1_update(self.Ez, self._Ez_old_edge, self._mur_coef, axis=0, side="lo")
+            mur1_update(self.Ez, self._Ez_old_edge, self._mur_coef, axis=0, side="hi")
         # 源
         if source_index is not None:
             if soft:
