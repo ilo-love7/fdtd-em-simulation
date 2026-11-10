@@ -1,0 +1,23 @@
+{
+ "config": {
+  "nx": 220,
+  "ny": 32,
+  "dx_m": 0.001,
+  "courant": 0.65,
+  "src": 40,
+  "wall": 170,
+  "lam_cells": 20,
+  "y_bc": "neumann"
+ },
+ "lam_m": 0.02,
+ "period_steps": 30.769230769230766,
+ "node_spacing_cells_sim": 10.311389700863899,
+ "node_spacing_cells_theory": 10.0,
+ "node_spacing_err_pct": 3.1138970086389772,
+ "node_depth_ratio": 0.04053629775892067,
+ "implied_abs_r_vswr": 0.9220857593411653,
+ "mur1_backreflection_coef": 0.2121212121212121,
+ "depth_explained_by_mur": "波节填充 ~ 源左行波经 x=0 一阶 Mur 边界回波 |coef|=0.212 的相干叠加；墙本身 r=-1（1D FFT 法已定 |r|=0.996）",
+ "n_nodes": 5,
+ "n_antinodes": 4
+}

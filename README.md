@@ -1,0 +1,41 @@
+# N8 · FDTD 电磁/光子学仿真入门
+
+博远线上科研新项目提案 v2 · N8（电磁场 · 数值仿真 · ★★★☆）。
+
+手写 Yee 网格 FDTD 求解 Maxwell 方程（1D Ez–Hy / 2D TMz），验证波源传播、金属反射、单缝衍射；fdtd 库仿真一维 Bragg 反射镜并验证光子带隙位置。基准文献：Yee, IEEE Trans. Antennas Propag. 1966。
+
+## 流水线
+
+```
+手写 1D/2D Yee（src/fdtd_core/）──→ 01 速度/PEC/Fresnel ─→ 02 驻波 ─→ 03 单缝衍射
+flaport/fdtd 0.3.5 封装（src/fdtd_lib/）──────────────────→ 04 Bragg 带隙 T(λ)
+src/analysis/ 解析理论（Fresnel / Fraunhofer / Bragg）── 对比 → 05 汇总
+```
+
+## 核心结果（v1.0.0）
+
+| 实验 | 指标 | 误差 vs 解析 |
+|---|---|---|
+| 1D 传播速度 | 3.005e8 m/s | 0.251% |
+| 1D PEC 反射 | \|r\|=0.9962，∠−176.1° | 0.38% / 3.9° |
+| 1D Fresnel（n=1.5/2/3） | r=−0.201/−0.335/−0.507 | 0.29–1.35% |
+| 2D 驻波波节间距 | 10.311 格 | 3.11% |
+| 2D 单缝极小值 | Δsinθ 均值 0.0136 | 图案 RMS 0.0116 |
+| Bragg 带隙中心 | 1014.4 nm（解析 1000） | 1.440%（T_min=0.001） |
+
+31 项单测全绿；`run_all.sh` 一键复现（04 扫描约 3 分钟）。
+
+## 关键数值约定
+
+- 2D 更新差分用**未除 dx 的节点差**配 `dt/(ε·dx)`（双重除 dx 会发散）。
+- y 均匀平面波验证用 `y_neumann=True`（Mur 会破坏 y 均匀场）。
+- fdtd 库：period 传整数步数；Object 注册后重建 `inverse_permittivity`（库的对称化会让波绕过堆栈 T≡1）。
+
+## 复现
+
+```bash
+pip install -r requirements.txt
+bash run_all.sh          # 01–04 实验 + pytest + 05 汇总
+```
+
+结果 JSON 在 `results/`，图在 `figures/`，报告在 `reports/`。

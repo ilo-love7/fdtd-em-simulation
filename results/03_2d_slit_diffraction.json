@@ -1,0 +1,27 @@
+{
+ "config": {
+  "nx": 260,
+  "ny": 200,
+  "dx_m": 0.001,
+  "courant": 0.65,
+  "src": 25,
+  "screen_x": 70,
+  "lam_cells": 16,
+  "slit_half_cells": 20,
+  "arc_R_cells": 85.0
+ },
+ "lam_m": 0.016,
+ "slit_width_m": 0.04,
+ "a_over_lambda": 2.5,
+ "theory_minima_sin_theta": [
+  0.4,
+  0.8
+ ],
+ "sim_minima_sin_theta": [
+  0.42008572841180614,
+  0.8071664232464002,
+  0.9921147013144779
+ ],
+ "minima_mean_abs_err_sin_theta": 0.013626075829103135,
+ "pattern_rms_err_vs_theory": 0.011603546016880155
+}

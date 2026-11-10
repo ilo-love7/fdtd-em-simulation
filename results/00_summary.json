@@ -1,0 +1,38 @@
+{
+ "project": "N8 FDTD 电磁/光子学仿真",
+ "solver": [
+  "手写 1D Yee (Ez-Hy)",
+  "手写 2D TMz Yee",
+  "flaport/fdtd 0.3.5 (Bragg)"
+ ],
+ "metrics": {
+  "speed_err_pct": 0.25062656641603454,
+  "pec_abs_r": 0.9962196668999358,
+  "pec_phase_err_deg": 3.9169915211163016,
+  "fresnel_err_pct": {
+   "n2=1.5": 0.2921714467306824,
+   "n2=2.0": 0.6371797142200153,
+   "n2=3.0": 1.3460871475075908
+  },
+  "standing_wave_node_spacing_err_pct": 3.1138970086389772,
+  "standing_wave_implied_abs_r": 0.9220857593411653,
+  "slit_minima_mean_abs_err_sin_theta": 0.013626075829103135,
+  "slit_pattern_rms_err": 0.011603546016880155,
+  "bragg_bandgap_center_err_pct": 1.4396372233260735,
+  "bragg_T_min_in_gap": 0.0009715945167507317
+ },
+ "files": {
+  "results": [
+   "01_1d_validation.json",
+   "02_2d_metal_reflection.json",
+   "03_2d_slit_diffraction.json",
+   "04_bragg_mirror.json"
+  ],
+  "figures": [
+   "01_1d_validation.png",
+   "02_2d_metal_reflection.png",
+   "03_2d_slit_diffraction.png",
+   "04_bragg_mirror.png"
+  ]
+ }
+}
