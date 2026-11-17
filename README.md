@@ -35,6 +35,17 @@ src/analysis/ 解析理论（Fresnel / Fraunhofer / Bragg）── 对比 → 05
 
 39 项单测全绿（v1.1 新增 8 项）。
 
+## v1.2 深化（色散介质 / TFSF / 数值色散）
+
+| 模块 | 结果 |
+|---|---|
+| Drude 色散介质（ADE 辅助微分方程，ω_p=0.1） | 等离子体截止 r/t vs Airy 最大偏差 **0.059**（近截止敏感点，余 <4.6%）；传播模相速度 vs 冷等离子体 n(ω)ω/c0 误差 **0.47%**（v_ph>c0 物理反常色散）；有损 γ 吸收 \|t\| 偏差 0.008 |
+| TFSF 总场/散射场源（双侧连接边界修正） | 无散射体泄漏 **0.2–2.1%**、散射场区 RMS 0.0014 vs 总场 0.70；介质半空间反射 vs Fresnel 最佳 **1.56%**（λ/dx=52）；消融关 H/E 修正 → 泄漏 0.357（**250×**，负结果） |
+| 数值色散相/群速度 | 相速度 vs 1D 离散关系 **0.12%**、vs k0 0.94%；群速度波包飞行时 vs dω/dk **0.0007%**（独立 observables）；2D 各向异性 ≈−Ω²/48 近乎 Courant-无关 → **无内点最优 S**（负结果） |
+
+62 项单测全绿（v1.2 新增 23 项）。注意：真空 Yee 网格 v_ph<c0 是数值色散，
+Drude 介质 v_ph>c0 是物理反常色散，机制不同。
+
 ## 关键数值约定
 
 - 2D 更新差分用**未除 dx 的节点差**配 `dt/(ε·dx)`（双重除 dx 会发散）。
@@ -45,7 +56,7 @@ src/analysis/ 解析理论（Fresnel / Fraunhofer / Bragg）── 对比 → 05
 
 ```bash
 pip install -r requirements.txt
-bash run_all.sh          # 01–04 实验 + pytest + 05 汇总
+bash run_all.sh          # 01–11 实验 + pytest + 05/12 汇总
 ```
 
 结果 JSON 在 `results/`，图在 `figures/`，报告在 `reports/`。

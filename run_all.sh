@@ -18,8 +18,16 @@ echo "=== 07 光子晶体带隙（v1.1，较长） ==="
 "$PY" scripts/07_photonic_crystal.py
 echo "=== 08 收敛阶研究（v1.1，较长） ==="
 "$PY" scripts/08_convergence.py
+echo "=== 09 Drude 色散介质（v1.2） ==="
+"$PY" scripts/09_drude.py
+echo "=== 10 TFSF 总场/散射场源（v1.2） ==="
+"$PY" scripts/10_tfsf.py
+echo "=== 11 数值色散相/群速度（v1.2） ==="
+"$PY" scripts/11_dispersion.py
 echo "=== pytest ==="
 "$PY" -m pytest tests/ -q
 echo "=== 05 汇总 ==="
 "$PY" scripts/05_summary.py
+echo "=== 12 v1.2 汇总 ==="
+"$PY" scripts/12_summary_v12.py
 echo "ALL DONE"

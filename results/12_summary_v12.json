@@ -1,0 +1,35 @@
+{
+ "project": "N8 FDTD (v1.2 dispersive media / TFSF / numerical dispersion)",
+ "results": {
+  "drude_rt_max_abs_deviation": 0.05870021829810018,
+  "drude_phase_velocity_max_err_pct": 0.4677658945465568,
+  "drude_absorption_max_deviation": 0.00811114449482564,
+  "tfsf_leak_pct_range": [
+   0.20203982376338736,
+   2.134127718440728
+  ],
+  "tfsf_reflection_err_pct_best": 1.5612893675174266,
+  "tfsf_ablation_full": 0.0014335092959645557,
+  "tfsf_ablation_no_h": 0.3570149828122131,
+  "dispersion_phase_max_err_discrete_pct": 0.1233376077962367,
+  "dispersion_group_max_err_pct": 0.0006982297517832414,
+  "dispersion_anisotropy_omega05_S0307": [
+   -0.00534679915275027,
+   -0.005337393714075489,
+   -0.005327266927297014,
+   -0.005322721749063342
+  ]
+ },
+ "files": {
+  "results": [
+   "09_drude.json",
+   "10_tfsf.json",
+   "11_dispersion.json"
+  ],
+  "figures": [
+   "09_drude.png",
+   "10_tfsf.png",
+   "11_dispersion.png"
+  ]
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "module": "B - TFSF total/scattered-field source",
+ "params": {
+  "nx": 2200,
+  "i_b": 450,
+  "courant": 0.95,
+  "incident": "analytic CW plane wave"
+ },
+ "leakage": [
+  {
+   "omega": 0.12,
+   "lambda_over_dx": 52.35987755982989,
+   "scat_rms": 0.008496273085610323,
+   "total_rms": 0.7130178743161069,
+   "leak_pct": 1.1915932814110093,
+   "total_vs_analytic_rel_l2": 0.05651853169498709
+  },
+  {
+   "omega": 0.2,
+   "lambda_over_dx": 31.41592653589793,
+   "scat_rms": 0.013635279753716095,
+   "total_rms": 0.7089326712273312,
+   "leak_pct": 1.9233532755811888,
+   "total_vs_analytic_rel_l2": 0.09334760805551298
+  },
+  {
+   "omega": 0.3,
+   "lambda_over_dx": 20.943951023931955,
+   "scat_rms": 0.0014335092959645557,
+   "total_rms": 0.709518187683318,
+   "leak_pct": 0.20203982376338736,
+   "total_vs_analytic_rel_l2": 0.1304126553564108
+  },
+  {
+   "omega": 0.45,
+   "lambda_over_dx": 13.962634015954636,
+   "scat_rms": 0.015104541248420037,
+   "total_rms": 0.7077618231516138,
+   "leak_pct": 2.134127718440728,
+   "total_vs_analytic_rel_l2": 0.17682646771886362
+  }
+ ],
+ "reflection": [
+  {
+   "omega": 0.12,
+   "lambda_over_dx": 52.35987755982989,
+   "n2": 2.0,
+   "r_abs_meas": 0.33853763122505803,
+   "r_abs_ana": 0.3333333333333333,
+   "err_pct": 1.5612893675174266
+  },
+  {
+   "omega": 0.2,
+   "lambda_over_dx": 31.41592653589793,
+   "n2": 2.0,
+   "r_abs_meas": 0.34015191333161915,
+   "r_abs_ana": 0.3333333333333333,
+   "err_pct": 2.0455739994857502
+  },
+  {
+   "omega": 0.3,
+   "lambda_over_dx": 20.943951023931955,
+   "n2": 2.0,
+   "r_abs_meas": 0.34803216611142984,
+   "r_abs_ana": 0.3333333333333333,
+   "err_pct": 4.4096498334289524
+  },
+  {
+   "omega": 0.45,
+   "lambda_over_dx": 13.962634015954636,
+   "n2": 2.0,
+   "r_abs_meas": 0.37247917543998876,
+   "r_abs_ana": 0.3333333333333333,
+   "err_pct": 11.743752631996628
+  }
+ ],
+ "ablation": {
+  "omega": 0.3,
+  "scat_rms_full": 0.0014335092959645557,
+  "scat_rms_no_h_correction": 0.3570149828122131,
+  "scat_rms_no_e_correction": 0.35700800614974054,
+  "note": "both connection-boundary corrections required; dropping either floods scattered region"
+ },
+ "summary": {
+  "leak_pct_range": [
+   0.20203982376338736,
+   2.134127718440728
+  ],
+  "reflection_err_pct_best": 1.5612893675174266,
+  "total_field_phase_err_grows_at_coarse_res": true,
+  "note": "scatter leakage ~0.2-2% is small but non-monotonic (probe samples residual standing-wave phase); the clean resolution signature is total-field phase L2 error growing monotonically 5.7%->17.7% as lambda/dx drops 52->14 (cf module C dispersion)",
+  "negative_result": "dropping H or E correction floods scattered field (rms ~0.36 vs ~0.001 full)"
+ }
+}

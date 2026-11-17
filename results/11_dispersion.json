@@ -1,0 +1,270 @@
+{
+ "module": "C - numerical dispersion phase/group velocity",
+ "phase_velocity": [
+  {
+   "lambda_over_dx": 12,
+   "courant": 0.5,
+   "k_fdtd": 528.5392722488713,
+   "k_discrete": 528.2244590832966,
+   "k_physical": 523.5987755982989,
+   "err_vs_discrete_pct": 0.05959836962512455,
+   "err_vs_physical_pct": 0.943565355921061,
+   "v_phase_over_c": 0.9906525457804655
+  },
+  {
+   "lambda_over_dx": 12,
+   "courant": 0.7,
+   "k_fdtd": 527.2129205117933,
+   "k_discrete": 526.7413357645535,
+   "k_physical": 523.5987755982989,
+   "err_vs_discrete_pct": 0.08952871461194167,
+   "err_vs_physical_pct": 0.690250833639694,
+   "v_phase_over_c": 0.9931448096719897
+  },
+  {
+   "lambda_over_dx": 12,
+   "courant": 0.9,
+   "k_fdtd": 524.5828532901893,
+   "k_discrete": 524.768092677194,
+   "k_physical": 523.5987755982989,
+   "err_vs_discrete_pct": 0.03529928545381589,
+   "err_vs_physical_pct": 0.18794499486098903,
+   "v_phase_over_c": 0.9981240757571118
+  },
+  {
+   "lambda_over_dx": 20,
+   "courant": 0.5,
+   "k_fdtd": 314.90283754814516,
+   "k_discrete": 315.1388156435008,
+   "k_physical": 314.1592653589793,
+   "err_vs_discrete_pct": 0.07488068230305789,
+   "err_vs_physical_pct": 0.2366863789028173,
+   "v_phase_over_c": 0.9976387250272009
+  },
+  {
+   "lambda_over_dx": 20,
+   "courant": 0.7,
+   "k_fdtd": 314.66164757820195,
+   "k_discrete": 314.8251539424397,
+   "k_physical": 314.1592653589793,
+   "err_vs_discrete_pct": 0.05193561003313807,
+   "err_vs_physical_pct": 0.15991322702151312,
+   "v_phase_over_c": 0.998403420870992
+  },
+  {
+   "lambda_over_dx": 20,
+   "courant": 0.9,
+   "k_fdtd": 314.34584407651676,
+   "k_discrete": 314.40723940617204,
+   "k_physical": 314.1592653589793,
+   "err_vs_discrete_pct": 0.01952732696971493,
+   "err_vs_physical_pct": 0.05938985034366073,
+   "v_phase_over_c": 0.9994064540026429
+  },
+  {
+   "lambda_over_dx": 32,
+   "courant": 0.5,
+   "k_fdtd": 196.7914717416646,
+   "k_discrete": 196.58710280915363,
+   "k_physical": 196.34954084936206,
+   "err_vs_discrete_pct": 0.10395846400430564,
+   "err_vs_physical_pct": 0.22507355524787886,
+   "v_phase_over_c": 0.9977543188818535
+  },
+  {
+   "lambda_over_dx": 32,
+   "courant": 0.7,
+   "k_fdtd": 196.7318677093213,
+   "k_discrete": 196.51106399173,
+   "k_physical": 196.34954084936206,
+   "err_vs_discrete_pct": 0.1123619775426965,
+   "err_vs_physical_pct": 0.1947174708458066,
+   "v_phase_over_c": 0.9980566094125424
+  },
+  {
+   "lambda_over_dx": 32,
+   "courant": 0.9,
+   "k_fdtd": 196.651953739661,
+   "k_discrete": 196.40970670593032,
+   "k_physical": 196.34954084936206,
+   "err_vs_discrete_pct": 0.1233376077962367,
+   "err_vs_physical_pct": 0.15401762030651245,
+   "v_phase_over_c": 0.998462192291772
+  }
+ ],
+ "group_velocity": [
+  {
+   "lambda_over_dx": 16,
+   "courant": 0.6,
+   "v_group_fdtd_over_c": 0.9874625365204996,
+   "v_group_analytic_over_c": 0.987469431325859,
+   "err_pct": 0.0006982297517832414
+  },
+  {
+   "lambda_over_dx": 16,
+   "courant": 0.85,
+   "v_group_fdtd_over_c": 0.994533497127706,
+   "v_group_analytic_over_c": 0.9945348925474263,
+   "err_pct": 0.0001403087745543985
+  },
+  {
+   "lambda_over_dx": 24,
+   "courant": 0.6,
+   "v_group_fdtd_over_c": 0.9944804950468716,
+   "v_group_analytic_over_c": 0.9944790183522823,
+   "err_pct": 0.00014848926543908902
+  },
+  {
+   "lambda_over_dx": 24,
+   "courant": 0.85,
+   "v_group_fdtd_over_c": 0.997595927087291,
+   "v_group_analytic_over_c": 0.9975999159001357,
+   "err_pct": 0.0003998409363603628
+  },
+  {
+   "lambda_over_dx": 32,
+   "courant": 0.6,
+   "v_group_fdtd_over_c": 0.9968979594228466,
+   "v_group_analytic_over_c": 0.9969038069106853,
+   "err_pct": 0.0005865649020608821
+  },
+  {
+   "lambda_over_dx": 32,
+   "courant": 0.85,
+   "v_group_fdtd_over_c": 0.9986549097166433,
+   "v_group_analytic_over_c": 0.9986555511284224,
+   "err_pct": 6.422752854007285e-05
+  }
+ ],
+ "anisotropy_2d": [
+  {
+   "Omega": 0.3,
+   "courant": 0.3,
+   "vp_axis": 0.9965646831909702,
+   "vp_diag": 0.9984572072370468,
+   "vp_anisotropy": -0.001892524046076538,
+   "vg_axis": 0.04452127130035459,
+   "vg_diag": 0.04477655909340773,
+   "vg_anisotropy": -0.00025528779305314386
+  },
+  {
+   "Omega": 0.3,
+   "courant": 0.5,
+   "vp_axis": 0.9971675119823451,
+   "vp_diag": 0.9990588784992928,
+   "vp_anisotropy": -0.0018913665169476568,
+   "vg_axis": 0.07429239918145449,
+   "vg_diag": 0.07471787523766604,
+   "vg_anisotropy": -0.00042547605621155726
+  },
+  {
+   "Omega": 0.3,
+   "courant": 0.65,
+   "vp_axis": 0.9978180014115822,
+   "vp_diag": 0.9997081204795335,
+   "vp_anisotropy": -0.0018901190679513347,
+   "vg_axis": 0.09670703044026602,
+   "vg_diag": 0.09726014535215567,
+   "vg_anisotropy": -0.0005531149118896544
+  },
+  {
+   "Omega": 0.3,
+   "courant": 0.7071067811865475,
+   "vp_axis": 0.9981104412072193,
+   "vp_diag": 1.0,
+   "vp_anisotropy": -0.0018895587927807433,
+   "vg_axis": 0.10526554706929211,
+   "vg_diag": 0.10586725523231634,
+   "vg_anisotropy": -0.0006017081630242255
+  },
+  {
+   "Omega": 0.5,
+   "courant": 0.3,
+   "vp_axis": 0.9903411264956088,
+   "vp_diag": 0.9956879256483591,
+   "vp_anisotropy": -0.00534679915275027,
+   "vg_axis": 0.07275944800092514,
+   "vg_diag": 0.07395978115613108,
+   "vg_anisotropy": -0.0012003331552059432
+  },
+  {
+   "Omega": 0.5,
+   "courant": 0.5,
+   "vp_axis": 0.9920302451645776,
+   "vp_diag": 0.9973676388786531,
+   "vp_anisotropy": -0.005337393714075489,
+   "vg_axis": 0.12168613945542849,
+   "vg_diag": 0.12368655926025435,
+   "vg_anisotropy": -0.002000419804825862
+  },
+  {
+   "Omega": 0.5,
+   "courant": 0.65,
+   "vp_axis": 0.9938556803510727,
+   "vp_diag": 0.9991829472783698,
+   "vp_anisotropy": -0.005327266927297014,
+   "vg_axis": 0.15878605822914899,
+   "vg_diag": 0.16138645425389514,
+   "vg_anisotropy": -0.0026003960247461544
+  },
+  {
+   "Omega": 0.5,
+   "courant": 0.7071067811865475,
+   "vp_axis": 0.9946772782509369,
+   "vp_diag": 1.0000000000000002,
+   "vp_anisotropy": -0.005322721749063342,
+   "vg_axis": 0.17302862125585236,
+   "vg_diag": 0.17585742088446432,
+   "vg_anisotropy": -0.002828799628611961
+  },
+  {
+   "Omega": 0.8,
+   "courant": 0.3,
+   "vp_axis": 0.9744917220574516,
+   "vp_diag": 0.9887896942094982,
+   "vp_anisotropy": -0.014297972152046645,
+   "vg_axis": 0.1105631997384357,
+   "vg_diag": 0.11567972531675313,
+   "vg_anisotropy": -0.005116525578317432
+  },
+  {
+   "Omega": 0.8,
+   "courant": 0.5,
+   "vp_axis": 0.9789167724260681,
+   "vp_diag": 0.9931444023138108,
+   "vp_anisotropy": -0.014227629887742732,
+   "vg_axis": 0.18602133347132008,
+   "vg_diag": 0.19454471851270508,
+   "vg_anisotropy": -0.008523385041385001
+  },
+  {
+   "Omega": 0.8,
+   "courant": 0.65,
+   "vp_axis": 0.9837158799067649,
+   "vp_diag": 0.9978680269241992,
+   "vp_anisotropy": -0.01415214701743428,
+   "vg_axis": 0.24433075665507245,
+   "vg_diag": 0.2554065184270552,
+   "vg_anisotropy": -0.011075761771982745
+  },
+  {
+   "Omega": 0.8,
+   "courant": 0.7071067811865475,
+   "vp_axis": 0.9858816464672715,
+   "vp_diag": 1.0000000000000002,
+   "vp_anisotropy": -0.014118353532728722,
+   "vg_axis": 0.26703951440891804,
+   "vg_diag": 0.2790865325516307,
+   "vg_anisotropy": -0.01204701814271264
+  }
+ ],
+ "summary": {
+  "phase_max_err_vs_discrete_pct": 0.1233376077962367,
+  "phase_max_err_vs_physical_pct": 0.943565355921061,
+  "group_max_err_pct": 0.0006982297517832414,
+  "vacuum_yee_v_phase_lt_c": true,
+  "vacuum_yee_v_group_lt_v_phase": true,
+  "note_drude": "Drude plasma medium (module A) has v_ph>c0 physically (n<1); vacuum Yee grid numerical dispersion here has v_ph,v_g<c0 -- different mechanisms",
+  "negative_result": "2D phase anisotropy ~ -Omega^2/48 is nearly Courant-independent over S in [0.3, 1/sqrt2]; no interior optimal S cancels it (v1.1 'only lambda/dx matters' extended)"
+ }
+}
