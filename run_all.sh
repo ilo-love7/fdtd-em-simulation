@@ -24,10 +24,18 @@ echo "=== 10 TFSF 总场/散射场源（v1.2） ==="
 "$PY" scripts/10_tfsf.py
 echo "=== 11 数值色散相/群速度（v1.2） ==="
 "$PY" scripts/11_dispersion.py
+echo "=== 13 TFSF 斜入射+2D Mie（v1.3） ==="
+"$PY" scripts/13_mie_tfsf.py
+echo "=== 14 各向同性色散补偿（v1.3） ==="
+"$PY" scripts/14_dispersion_comp.py
+echo "=== 15 3D Yee+Drude+PML（v1.3） ==="
+"$PY" scripts/15_drude3d.py
 echo "=== pytest ==="
 "$PY" -m pytest tests/ -q
 echo "=== 05 汇总 ==="
 "$PY" scripts/05_summary.py
 echo "=== 12 v1.2 汇总 ==="
 "$PY" scripts/12_summary_v12.py
+echo "=== 16 v1.3 汇总 ==="
+"$PY" scripts/16_summary_v13.py
 echo "ALL DONE"

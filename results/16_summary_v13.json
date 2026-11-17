@@ -1,0 +1,30 @@
+{
+ "project": "N8 FDTD (v1.3 TFSF oblique+Mie / dispersion compensation / 3D Drude+PML)",
+ "results": {
+  "mie_tfsf_leak_max_pct": 2.5099077389415787,
+  "mie_tfsf_ablation_amp_min": 17.46652506157515,
+  "mie_pattern_corr": 0.9985132327694083,
+  "mie_pattern_rel_err_pct": 3.8407718309522068,
+  "disp_compression_median": 191.73051282815726,
+  "disp_compression_range": [
+   45.25936776700385,
+   775.6801123310704
+  ],
+  "disp_fdtd_residual_max_pct": 0.25413418741838417,
+  "drude3d_dispersion_err_max_pct": 1.6871385346651224,
+  "drude3d_pml_residual_ratio": 7.471506356887412e-06,
+  "drude3d_stable": true
+ },
+ "files": {
+  "results": [
+   "13_mie_tfsf.json",
+   "14_dispersion_comp.json",
+   "15_drude3d.json"
+  ],
+  "figures": [
+   "13_mie_tfsf.png",
+   "14_dispersion_comp.png",
+   "15_drude3d.png"
+  ]
+ }
+}

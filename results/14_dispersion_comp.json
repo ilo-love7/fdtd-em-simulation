@@ -1,0 +1,236 @@
+{
+ "module": "B - isotropic 9-point Laplacian dispersion compensation",
+ "analytic_scan": [
+  {
+   "lambda_over_dx": 8,
+   "Omega": 0.7853981633974483,
+   "courant": 0.4,
+   "vp_aniso_5pt": -0.01371540304993791,
+   "vp_aniso_9pt": -0.00030304009372258766,
+   "compression": 45.25936776700385
+  },
+  {
+   "lambda_over_dx": 8,
+   "Omega": 0.7853981633974483,
+   "courant": 0.6,
+   "vp_aniso_5pt": -0.013634574746646306,
+   "vp_aniso_9pt": -0.0002979033194747833,
+   "compression": 45.76845525147105
+  },
+  {
+   "lambda_over_dx": 8,
+   "Omega": 0.7853981633974483,
+   "courant": 0.7,
+   "vp_aniso_5pt": -0.013582267147234671,
+   "vp_aniso_9pt": -0.0002946086252904701,
+   "compression": 46.102747785619655
+  },
+  {
+   "lambda_over_dx": 12,
+   "Omega": 0.5235987755982988,
+   "courant": 0.4,
+   "vp_aniso_5pt": -0.0058737118629681225,
+   "vp_aniso_9pt": -5.53590789871872e-05,
+   "compression": 106.10205173983454
+  },
+  {
+   "lambda_over_dx": 12,
+   "Omega": 0.5235987755982988,
+   "courant": 0.6,
+   "vp_aniso_5pt": -0.005859472358339129,
+   "vp_aniso_9pt": -5.496391104977839e-05,
+   "compression": 106.6058118213688
+  },
+  {
+   "lambda_over_dx": 12,
+   "Omega": 0.5235987755982988,
+   "courant": 0.7,
+   "vp_aniso_5pt": -0.005850230334203116,
+   "vp_aniso_9pt": -5.470841589367945e-05,
+   "compression": 106.93474191562184
+  },
+  {
+   "lambda_over_dx": 16,
+   "Omega": 0.39269908169872414,
+   "courant": 0.4,
+   "vp_aniso_5pt": -0.0032631823888105435,
+   "vp_aniso_9pt": -1.706431459770994e-05,
+   "compression": 191.2284475374398
+  },
+  {
+   "lambda_over_dx": 16,
+   "Omega": 0.39269908169872414,
+   "courant": 0.6,
+   "vp_aniso_5pt": -0.0032588476674119808,
+   "vp_aniso_9pt": -1.6997021597354178e-05,
+   "compression": 191.73051282815726
+  },
+  {
+   "lambda_over_dx": 16,
+   "Omega": 0.39269908169872414,
+   "courant": 0.7,
+   "vp_aniso_5pt": -0.0032560321918587033,
+   "vp_aniso_9pt": -1.695340726863443e-05,
+   "compression": 192.0576872993963
+  },
+  {
+   "lambda_over_dx": 20,
+   "Omega": 0.3141592653589793,
+   "courant": 0.4,
+   "vp_aniso_5pt": -0.002076657726956695,
+   "vp_aniso_9pt": -6.906931207249396e-06,
+   "compression": 300.66286526454337
+  },
+  {
+   "lambda_over_dx": 20,
+   "Omega": 0.3141592653589793,
+   "courant": 0.6,
+   "vp_aniso_5pt": -0.0020749132906071875,
+   "vp_aniso_9pt": -6.889641856000107e-06,
+   "compression": 301.16417282273824
+  },
+  {
+   "lambda_over_dx": 20,
+   "Omega": 0.3141592653589793,
+   "courant": 0.7,
+   "vp_aniso_5pt": -0.0020737799177919292,
+   "vp_aniso_9pt": -6.878424182046278e-06,
+   "compression": 301.490554072662
+  },
+  {
+   "lambda_over_dx": 32,
+   "Omega": 0.19634954084936207,
+   "courant": 0.4,
+   "vp_aniso_5pt": -0.0008062907081048011,
+   "vp_aniso_9pt": -1.0405710401913297e-06,
+   "compression": 774.8540723913943
+  },
+  {
+   "lambda_over_dx": 32,
+   "Omega": 0.19634954084936207,
+   "courant": 0.6,
+   "vp_aniso_5pt": -0.0008060295283896543,
+   "vp_aniso_9pt": -1.0395624815647765e-06,
+   "compression": 775.3545772221382
+  },
+  {
+   "lambda_over_dx": 32,
+   "Omega": 0.19634954084936207,
+   "courant": 0.7,
+   "vp_aniso_5pt": -0.0008058597896864324,
+   "vp_aniso_9pt": -1.0389073754445838e-06,
+   "compression": 775.6801123310704
+  }
+ ],
+ "fdtd_oblique_scan": [
+  {
+   "scheme": "5pt",
+   "ky_imposed": 0.0,
+   "kx_meas": 0.3152294994944716,
+   "ky_meas": 0.00014230996984459496,
+   "theta_deg": 0.025866107435620716,
+   "k_mag_meas": 0.3152295316173004,
+   "k_analytic": 0.31499499731339664,
+   "kx_err_pct": 0.07444631917175037,
+   "dispersion_residual_pct": 0.1477125824988107,
+   "v_phase_over_c": 0.9966048033227407
+  },
+  {
+   "scheme": "5pt",
+   "ky_imposed": 0.08,
+   "kx_meas": 0.3045225966175082,
+   "ky_meas": 0.07972370294675224,
+   "theta_deg": 14.670720792580992,
+   "k_mag_meas": 0.31478545179568196,
+   "k_analytic": 0.3045760696553207,
+   "kx_err_pct": 0.017556546012631458,
+   "dispersion_residual_pct": 0.03258927254404875,
+   "v_phase_over_c": 0.9980107516623447
+  },
+  {
+   "scheme": "5pt",
+   "ky_imposed": 0.14,
+   "kx_meas": 0.28088264571635385,
+   "ky_meas": 0.14074574496225395,
+   "theta_deg": 26.61470761372733,
+   "k_mag_meas": 0.31417260445430084,
+   "k_analytic": 0.28133278787222554,
+   "kx_err_pct": 0.1600034461948785,
+   "dispersion_residual_pct": 0.253807273460036,
+   "v_phase_over_c": 0.9999575421436101
+  },
+  {
+   "scheme": "5pt",
+   "ky_imposed": 0.16,
+   "kx_meas": 0.27046578850508457,
+   "ky_meas": 0.16058548582140275,
+   "theta_deg": 30.699162441136803,
+   "k_mag_meas": 0.3145464051744561,
+   "k_analytic": 0.270400163313693,
+   "kx_err_pct": 0.024269656714470678,
+   "dispersion_residual_pct": 0.03563199803787625,
+   "v_phase_over_c": 0.9987692123988444
+  },
+  {
+   "scheme": "9pt",
+   "ky_imposed": 0.0,
+   "kx_meas": 0.31522946296907145,
+   "ky_meas": 0.00011451356878733238,
+   "theta_deg": 0.02081386631212239,
+   "k_mag_meas": 0.31522948376877225,
+   "k_analytic": 0.3149950091816342,
+   "kx_err_pct": 0.07443095306378655,
+   "dispersion_residual_pct": 0.14768209350876862,
+   "v_phase_over_c": 0.9966049545968931
+  },
+  {
+   "scheme": "9pt",
+   "ky_imposed": 0.08,
+   "kx_meas": 0.30469439073707644,
+   "ky_meas": 0.07968753170825829,
+   "theta_deg": 14.656439502390976,
+   "k_mag_meas": 0.31494249388799994,
+   "k_analytic": 0.30474815399783395,
+   "kx_err_pct": 0.017641865931661282,
+   "dispersion_residual_pct": 0.032749393731378675,
+   "v_phase_over_c": 0.9975131062202767
+  },
+  {
+   "scheme": "9pt",
+   "ky_imposed": 0.14,
+   "kx_meas": 0.2813314664320754,
+   "ky_meas": 0.14078119862830374,
+   "theta_deg": 26.58386057577433,
+   "k_mag_meas": 0.3145897962300174,
+   "k_analytic": 0.2817829768625195,
+   "kx_err_pct": 0.16023339503025147,
+   "dispersion_residual_pct": 0.25413418741838417,
+   "v_phase_over_c": 0.9986314531615534
+  },
+  {
+   "scheme": "9pt",
+   "ky_imposed": 0.16,
+   "kx_meas": 0.27100571984576904,
+   "ky_meas": 0.16067769035682652,
+   "theta_deg": 30.663451281853906,
+   "k_mag_meas": 0.31505780480338474,
+   "k_analytic": 0.27093078979312624,
+   "kx_err_pct": 0.027656529071506952,
+   "dispersion_residual_pct": 0.04058771481069282,
+   "v_phase_over_c": 0.9971480171869852
+  }
+ ],
+ "summary": {
+  "compression_median": 191.73051282815726,
+  "compression_min": 45.25936776700385,
+  "compression_max": 775.6801123310704,
+  "fdtd_kx_max_err_pct": 0.16023339503025147,
+  "fdtd_dispersion_residual_max_pct": 0.25413418741838417,
+  "v_phase_spread_5pt": 0.0033527388208693942,
+  "v_phase_spread_9pt": 0.002026498564660306,
+  "courant_limit_5pt": 0.7071067811865475,
+  "courant_limit_9pt": 0.8660254037844386,
+  "mechanism": "9pt symbol -4[sx^2+sy^2-(2/3)sx^2sy^2] cancels the O(K^4) theta-dependent term of 5pt exactly; residual O(K^6)",
+  "note": "FDTD vp(angle) spread limited by phasor-fit noise (~0.05%c) below the analytic 9pt anisotropy; analytic scan is the quantitative result, FDTD confirms the dispersion realization"
+ }
+}

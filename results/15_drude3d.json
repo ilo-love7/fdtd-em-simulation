@@ -1,0 +1,59 @@
+{
+ "module": "C - 3D Yee + Drude ADE + PML",
+ "dispersion": [
+  {
+   "courant": 0.3,
+   "k_fdtd": 0.24645141035059687,
+   "k_discrete": 0.2505966096493543,
+   "k_physical": 0.25,
+   "err_pct": 1.6541322344933551
+  },
+  {
+   "courant": 0.4,
+   "k_fdtd": 0.24638477804186248,
+   "k_discrete": 0.25055068567477695,
+   "k_physical": 0.25,
+   "err_pct": 1.6627005516648086
+  },
+  {
+   "courant": 0.5,
+   "k_fdtd": 0.24626550701850988,
+   "k_discrete": 0.2504916481404044,
+   "k_physical": 0.25,
+   "err_pct": 1.6871385346651224
+  }
+ ],
+ "drude_slab": [
+  {
+   "omega": 0.5,
+   "omega_over_wp": 1.6666666666666667,
+   "t_over_vacuum": 0.9880767758764799,
+   "t_analytic": 0.9979084695029019,
+   "t_err_pct": 0.9831693626422
+  },
+  {
+   "omega": 0.22,
+   "omega_over_wp": 0.7333333333333334,
+   "t_over_vacuum": 1.1337484181128377,
+   "t_analytic": 0.000570985569188672,
+   "t_err_pct": 113.3177432543649,
+   "kappa_meas": 0.30425065699595394
+  }
+ ],
+ "pml": {
+  "edge_max": 3.2563037283987046e-08,
+  "interior_max": 0.004358296135821348,
+  "residual_ratio": 7.471506356887412e-06
+ },
+ "stability": {
+  "max_abs_E_after_2000": 2.6456771998365767,
+  "finite": true,
+  "cfl_violation_rejected": true
+ },
+ "summary": {
+  "dispersion_max_err_pct": 1.6871385346651224,
+  "pml_residual_ratio": 7.471506356887412e-06,
+  "stable": true,
+  "note": "3D k measurement uses short time window (no boundary echo); phasing e^{+iwt} gives slope +k for a +x wave. ADE trapezoid coefficients stay positive for gamma>=0; PML E drive uses exact-integration phi=(1-e^-x)/x to avoid CN negative pump"
+ }
+}

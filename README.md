@@ -46,6 +46,17 @@ src/analysis/ 解析理论（Fresnel / Fraunhofer / Bragg）── 对比 → 05
 62 项单测全绿（v1.2 新增 23 项）。注意：真空 Yee 网格 v_ph<c0 是数值色散，
 Drude 介质 v_ph>c0 是物理反常色散，机制不同。
 
+## v1.3 深化（TFSF 斜入射+Mie / 色散补偿 / 3D Drude+PML）
+
+| 模块 | 结果 |
+|---|---|
+| 2D TFSF 斜入射 + 圆柱 Mie（`tfsf2d.py` / `mie2d.py`） | 矩形连接盒四边修正，θ∈{0,30,45,60}° 泄漏 **1.78–2.51%**；消融关 H/E 修正放大 **17.5×**；介质圆柱 m=1.5 ka=3 的 16 角度散射场 vs Mie 级数相关 **0.9985**、标定后相对误差 **3.84%**（相量约定 e^{−ikx} vs e^{+ikx} 按 φ→φ+π 镜像） |
+| 各向同性 9 点 Laplacian 色散补偿（`isotropic.py`） | L9 符号 −4[s_x²+s_y²−(2/3)s_x²s_y²] 精确消去 5 点的 O(K⁴) 各向异性；v_ph 各向异性压缩 **45–776×（中位 192×）**；FDTD 色散关系残差 **≤0.254%**；稳定上限 9 点 S≤√3/2 vs 5 点 1/√2 |
+| 3D 全矢量 Yee + Drude ADE + PML（`yee3d.py`） | 六分量全开、CFL S≤1/√3；平面波 k vs 离散色散 **1.65–1.69%**；Drude 板截止上透射/vacuum 0.988 vs 解析 0.998（**1.0%**）；PML 残余 **7.5e−6**；有损 ADE 2000 步稳定 |
+
+76 项单测全绿（v1.3 新增 14 项）。截止下透射受 3D 边界回波限制，已如实标注为
+测量口径限制，改以板内倏逝衰减 κ 作独立判据。
+
 ## 关键数值约定
 
 - 2D 更新差分用**未除 dx 的节点差**配 `dt/(ε·dx)`（双重除 dx 会发散）。
@@ -56,7 +67,7 @@ Drude 介质 v_ph>c0 是物理反常色散，机制不同。
 
 ```bash
 pip install -r requirements.txt
-bash run_all.sh          # 01–11 实验 + pytest + 05/12 汇总
+bash run_all.sh          # 01–15 实验 + pytest + 05/12/16 汇总
 ```
 
 结果 JSON 在 `results/`，图在 `figures/`，报告在 `reports/`。
